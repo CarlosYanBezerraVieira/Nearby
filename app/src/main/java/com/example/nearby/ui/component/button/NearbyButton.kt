@@ -1,4 +1,4 @@
-package com.example.nearby.ui.component
+package com.example.nearby.ui.component.button
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.min
 import com.example.nearby.R
 import com.example.nearby.ui.theme.GreenBase
 import com.example.nearby.ui.theme.Typography
