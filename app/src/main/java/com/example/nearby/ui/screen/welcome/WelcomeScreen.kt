@@ -17,7 +17,7 @@ import com.example.nearby.ui.component.button.NearbyButton
 
 
 @Composable
-fun WelcomeScreen(modifier: Modifier = Modifier) {
+fun WelcomeScreen(modifier: Modifier = Modifier, onNavigateToHome: () -> Unit = {}) {
     Column(
         modifier = modifier
             .background(color = Color.White)
@@ -30,10 +30,11 @@ fun WelcomeScreen(modifier: Modifier = Modifier) {
 
         WelcomeHeader()
         WelcomeHowItWorksTipList()
-        NearbyButton (
+        NearbyButton(
             modifier = Modifier.fillMaxWidth(),
             text = "Começar",
-            onClick = {}
+            onClick = onNavigateToHome
+
         )
 
     }
