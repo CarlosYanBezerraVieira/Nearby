@@ -1,6 +1,5 @@
-package com.example.nearby.data.model.mock
+package com.example.nearby.data.model
 
-import com.example.nearby.data.model.Rule
 import kotlinx.serialization.Serializable
 
 @Serializable
