@@ -21,13 +21,13 @@ import com.example.nearby.data.model.mock.mockCategories
 fun NearbyCategoryFilterChipList(
     modifier: Modifier = Modifier,
     categories: List<Category>,
-    onSelectedCategoryChange: (Category) -> Unit,
+    onSelectedCategoryChanged: (Category) -> Unit,
 ) {
     var selectedCategoryId by remember { mutableStateOf(categories.firstOrNull()?.id.orEmpty()) }
 
     LaunchedEffect(key1 = selectedCategoryId) {
         val selectedCategoryOrNull = categories.find { it.id == selectedCategoryId }
-        selectedCategoryOrNull?.let { onSelectedCategoryChange(it) }
+        selectedCategoryOrNull?.let { onSelectedCategoryChanged(it) }
     }
     LazyRow(
         modifier = modifier,
@@ -56,7 +56,7 @@ private fun NearbyCategoryFilterChipListPreview() {
     NearbyCategoryFilterChipList(
         modifier = Modifier.fillMaxWidth(),
         categories =mockCategories,
-        onSelectedCategoryChange = {
+        onSelectedCategoryChanged = {
         }
     )
 
