@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import com.example.nearby.data.model.Market
 import com.example.nearby.ui.theme.Gray100
 import com.example.nearby.ui.theme.Gray200
@@ -58,19 +59,16 @@ fun NearbyMarketCard(modifier: Modifier = Modifier, market: Market, onClick: (Ma
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Image(
+            AsyncImage(
                 modifier = Modifier
                     .clip(RoundedCornerShape(12.dp))
                     .fillMaxWidth(0.3f)
                     .height(IntrinsicSize.Min)
                     .aspectRatio(1f, matchHeightConstraintsFirst = true),
                 contentScale = ContentScale.Crop,
-                painter = painterResource(
-                    R.drawable.img_burger,
-                ),//TODO: change to market.cover
+                model = market.cover,
                 contentDescription = "Image of store",
-
-                )
+            )
             Column {
                 Text(text = market.name, style = Typography.headlineSmall.copy(fontSize = 14.sp))
                 Spacer(modifier = Modifier.height(8.dp))
@@ -90,8 +88,9 @@ fun NearbyMarketCard(modifier: Modifier = Modifier, market: Market, onClick: (Ma
                     Icon(
                         modifier = Modifier.size(24.dp),
                         tint = if (market.coupons > 0) RedBase else Gray400,
-                        painter = painterResource(id = R.drawable.ic_ticket,
-                            ),
+                        painter = painterResource(
+                            id = R.drawable.ic_ticket,
+                        ),
                         contentDescription = "Icon of coupon"
                     )
                     Text(
