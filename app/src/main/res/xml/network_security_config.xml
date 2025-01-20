@@ -2,5 +2,7 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">10.0.2.2</domain>
+<!--         ip da maquina local que está rodando o backend-->
+<!--        <domain includeSubdomains="true">localhost</domain>-->
     </domain-config>
 </network-security-config>
