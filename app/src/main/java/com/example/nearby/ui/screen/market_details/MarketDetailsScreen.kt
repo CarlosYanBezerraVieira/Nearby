@@ -15,6 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,9 +31,23 @@ import com.example.nearby.ui.component.market_details.NearbyMarketDetailsCoupons
 import com.example.nearby.ui.component.market_details.NearbyMarketDetailsInfo
 import com.example.nearby.ui.theme.Typography
 import com.example.nearby.R
+import com.example.nearby.ui.component.market_details.NearbyMarketDetailsRules
 
 @Composable
-fun MarketDetailsScreen(modifier: Modifier = Modifier, market: Market, onNavigateBack: () -> Unit) {
+fun MarketDetailsScreen(
+    modifier: Modifier = Modifier,
+    market: Market,
+    uiState: MarketDetailsUiState = MarketDetailsUiState(),
+    onEvent: (MarketDetailsUiEvent) -> Unit,
+    onNavigateBack: () -> Unit,
+    onNavigateToQRCodeScanner: () -> Unit
+) {
+
+    LaunchedEffect(true) {
+        onEvent(MarketDetailsUiEvent.OnFetchRules(marketId = market.id))
+
+    }
+
     Box(modifier = modifier.fillMaxSize()) {
         AsyncImage(
             modifier = Modifier
@@ -84,34 +99,38 @@ fun MarketDetailsScreen(modifier: Modifier = Modifier, market: Market, onNavigat
                             .fillMaxWidth()
                             .padding(vertical = 24.dp)
                     )
-//                    if (market.rules.isNotEmpty()) {
-//                        NearbyMarketDetailsRules(
-//                            rules = market.rules
-//                        )
-//                        HorizontalDivider(
-//                            modifier = Modifier
-//                                .fillMaxWidth()
-//                                .padding(vertical = 24.dp)
-//                        )
-//                    }
-
+                    if (!uiState.rules.isNullOrEmpty()) {
+                        NearbyMarketDetailsRules(
+                            rules = uiState.rules
+                        )
+                        HorizontalDivider(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 24.dp)
+                        )
+                    }
+                    if (!uiState.coupon.isNullOrEmpty()) {
                     NearbyMarketDetailsCoupons(
-                        coupons = listOf("FM43T7")
+                        coupons = listOf(uiState.coupon)
                     )
+                }
                 }
                 NearbyButton(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 24.dp),
                     text = "Ler QR Code",
-                    onClick = {}
+                    onClick =  onNavigateToQRCodeScanner
+
                 )
             }
 
 
         }
-        NearbyButton (
-            modifier = Modifier.align(Alignment.TopStart).padding(24.dp),
+        NearbyButton(
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(24.dp),
             iconRes = R.drawable.ic_arrow_left,
             onClick = onNavigateBack
         )
@@ -121,5 +140,10 @@ fun MarketDetailsScreen(modifier: Modifier = Modifier, market: Market, onNavigat
 @Preview
 @Composable
 private fun MarketDetailsScreenPreview() {
-    MarketDetailsScreen(market = mockMarkets.first(), onNavigateBack = {})
+    MarketDetailsScreen(
+        market = mockMarkets.first(),
+        onNavigateBack = {},
+        uiState = MarketDetailsUiState(),
+        onEvent = {},
+        onNavigateToQRCodeScanner = {})
 }
