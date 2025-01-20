@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "com.example.nearby"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.nearby"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -43,10 +43,13 @@ android {
 dependencies {
     implementation(libs.maps.compose)
     implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
     implementation(libs.navigation.compose)
     implementation(libs.kotlin.serialization)
     implementation(platform(libs.ktor.bom))
     implementation(libs.bundles.ktor)
+    implementation(libs.zxing)
+    implementation(libs.zxing.android.embedded)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
